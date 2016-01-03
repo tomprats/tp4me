@@ -1,6 +1,6 @@
 class Link < ApplicationRecord
   validates :uid, presence: true, uniqueness: true
-  validates :url, presence: true
+  validates_format_of :url, with: /\Ahttp/, message: "should contain http(s)"
 
   has_many :views
 

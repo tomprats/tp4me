@@ -1,7 +1,10 @@
 class LinksController < ApplicationController
-  after_action :create_view, unless: :prefetching
+  before_action :authenticate, only: [:create, :show, :update, :destroy]
+  before_action :set_link, only: [:show, :update, :destroy]
 
-  def show
+  after_action :create_view, only: [:go, :random], unless: :prefetching
+
+  def go
     @link = Link.find_by(uid: params[:uid])
 
     redirect_to @link.url
@@ -11,6 +14,29 @@ class LinksController < ApplicationController
     @link = Link.random
 
     redirect_to @link.url
+  end
+
+  # Admin
+  def create
+    @link = Link.create(link_params)
+
+    render json: @link.errors.empty? ? @link : @link.errors
+  end
+
+  def show
+    render json: @link
+  end
+
+  def update
+    @link.update(link_params)
+
+    render json: @link.errors.empty? ? @link : @link.errors
+  end
+
+  def destroy
+    @link.destroy
+
+    render json: @link
   end
 
   private
@@ -29,5 +55,15 @@ class LinksController < ApplicationController
         accept_language: request.accept_language
       }
     )
+  end
+
+  def link_params
+    params.require(:link).permit(:uid, :url)
+  end
+
+  def set_link
+    @link = Link.find_by(uid: params[:uid])
+
+    head 404 unless @link
   end
 end
