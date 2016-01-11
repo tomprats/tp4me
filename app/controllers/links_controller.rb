@@ -20,23 +20,23 @@ class LinksController < ApplicationController
   def create
     @link = Link.create(link_params)
 
-    render json: @link.errors.empty? ? @link : @link.errors
+    render json: { link: @link, errors: @link.errors }
   end
 
   def show
-    render json: @link
+    render json: { link: @link }
   end
 
   def update
     @link.update(link_params)
 
-    render json: @link.errors.empty? ? @link : @link.errors
+    render json: { link: @link, errors: @link.errors }
   end
 
   def destroy
     @link.destroy
 
-    render json: @link
+    render json: { link: @link }
   end
 
   private
