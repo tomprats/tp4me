@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-ruby "2.2.2"
+ruby "2.5.0"
 
-gem "rails", github: "rails/rails"
+gem "rails"
 
 gem "pg"
 gem "unicorn"

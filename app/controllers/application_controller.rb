@@ -3,7 +3,10 @@ class ApplicationController < ActionController::API
 
   def authenticate
     valid = authenticate_with_http_basic do |username, password|
-      username == ENV["ADMIN_USERNAME"] && password == ENV["ADMIN_PASSWORD"]
+      admin_username = Rails.application.secrets.admin_username
+      admin_password = Rails.application.secrets.admin_password
+
+      username == admin_username && password == admin_password
     end
 
     head 401 unless valid

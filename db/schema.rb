@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,27 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224045959) do
+ActiveRecord::Schema.define(version: 2015_12_24_045959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "links", force: :cascade do |t|
-    t.string   "uid",                     null: false
-    t.string   "url",                     null: false
-    t.integer  "total_views", default: 0
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.index ["uid"], name: "index_links_on_uid", using: :btree
+  create_table "links", id: :serial, force: :cascade do |t|
+    t.string "uid", null: false
+    t.string "url", null: false
+    t.integer "total_views", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uid"], name: "index_links_on_uid"
   end
 
-  create_table "views", force: :cascade do |t|
-    t.integer  "link_id",       null: false
-    t.json     "raw_data"
-    t.json     "computed_data"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["link_id"], name: "index_views_on_link_id", using: :btree
+  create_table "views", id: :serial, force: :cascade do |t|
+    t.integer "link_id", null: false
+    t.json "raw_data"
+    t.json "computed_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["link_id"], name: "index_views_on_link_id"
   end
 
 end

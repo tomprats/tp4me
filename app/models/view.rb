@@ -8,7 +8,6 @@ class View < ApplicationRecord
   private
   def set_data
     self.computed_data ||= {}
-    puts raw_data
     set_location
     set_user_agent
   end
